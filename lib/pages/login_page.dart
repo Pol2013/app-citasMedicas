@@ -11,9 +11,8 @@ class LoginPage extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: <Widget>[
-              Placeholder(
-                fallbackWidth: 50.0,
-                fallbackHeight: 50.0,
+              FlutterLogo(
+                size: 50.0,
               ),
               SizedBox(height: 100.0),
               buildTextField('documento de identidad'),
