@@ -1,3 +1,4 @@
+import 'package:app_citas/pages/dashboad_page.dart';
 import 'package:app_citas/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,12 @@ class LoginPage extends StatelessWidget {
                   textColor: Colors.white,
                   color: Colors.blue,
                   child: Text("ingresar"),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DashBoardPage()),
+                    );
+                  },
                   shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(30.0),
                   ),
@@ -41,9 +47,9 @@ class LoginPage extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterPage()));
+                        context,
+                        MaterialPageRoute(builder: (context) => RegisterPage()),
+                      );
                     },
                     child: Text(
                       'aqui',
