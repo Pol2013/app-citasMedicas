@@ -1,3 +1,4 @@
+import 'package:app_citas/pages/frequent_questions_page.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardPage extends StatelessWidget {
@@ -105,8 +106,12 @@ class DashBoardPage extends StatelessWidget {
               ListTile(
                 title: Text('Pregunta Frecuentes'),
                 onTap: () {
-                  // Update the state of the app.
-                  // ...
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FrequentQuestionsPage(),
+                    ),
+                  );
                 },
               ),
               ListTile(

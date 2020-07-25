@@ -1,10 +1,17 @@
-import 'package:app_citas/pages/dashboad_page.dart';
+export 'package:app_citas/blocs/login_bloc.dart';
+import 'package:app_citas/blocs/login_bloc.dart';
+import 'package:app_citas/blocs/provider.dart';
 import 'package:app_citas/pages/register_page.dart';
+import 'package:app_citas/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
+  final userProvider = UserProvider();
+
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of(context);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -15,29 +22,13 @@ class LoginPage extends StatelessWidget {
                 size: 50.0,
               ),
               SizedBox(height: 100.0),
-              buildTextField('documento de identidad'),
+              _buildEmailTextField(bloc),
               SizedBox(height: 20.0),
-              buildTextField('clave'),
+              _buildPasswordTextField(bloc),
               SizedBox(height: 20.0),
               Text('Olvide mi clave'),
               SizedBox(height: 20.0),
-              ButtonTheme(
-                minWidth: 400.0,
-                child: RaisedButton(
-                  textColor: Colors.white,
-                  color: Colors.blue,
-                  child: Text("ingresar"),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => DashBoardPage()),
-                    );
-                  },
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                  ),
-                ),
-              ),
+              _buildSignInButton(bloc),
               SizedBox(height: 10.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -65,13 +56,82 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  TextField buildTextField(String inputText) {
+  Widget _buildEmailTextField(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return buildTextField(
+            'documento de identidad', bloc.changeEmail, snapshot);
+      },
+    );
+  }
+
+  Widget _buildPasswordTextField(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.passwordStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return buildTextField('clave', bloc.changePassword, snapshot,
+            isPassword: true);
+      },
+    );
+  }
+
+  Widget _buildSignInButton(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.formValidStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return ButtonTheme(
+          minWidth: 400.0,
+          child: RaisedButton(
+            textColor: Colors.white,
+            color: Colors.blue,
+            child: Text("ingresar"),
+            onPressed: snapshot.hasData
+                ? () {
+                    _login(context, bloc);
+                  }
+                : null,
+            shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(30.0),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildTextField(String inputText, Function fu, AsyncSnapshot snapshot,
+      {isPassword = false}) {
     return TextField(
-      obscureText: true,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         labelText: inputText.toUpperCase(),
+        errorText: snapshot.error,
       ),
+      onChanged: fu,
+      obscureText: isPassword,
+    );
+  }
+
+  _login(BuildContext context, LoginBloc bloc) async {
+    final info = await userProvider.login(bloc.email, bloc.password);
+
+    if (info['ok']) {
+      Navigator.pushReplacementNamed(context, 'dashboard');
+    } else {
+      _showAlert(context, 'Error al iniciar Sesión');
+    }
+  }
+
+  void _showAlert(BuildContext context, String s) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Alerta'),
+          content: Text(s),
+        );
+      },
     );
   }
 }
