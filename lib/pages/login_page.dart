@@ -61,7 +61,8 @@ class LoginPage extends StatelessWidget {
       stream: bloc.emailStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return buildTextField(
-            'documento de identidad', bloc.changeEmail, snapshot);
+            'documento de identidad', bloc.changeEmail, snapshot,
+            typeInput: TextInputType.number);
       },
     );
   }
@@ -101,7 +102,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget buildTextField(String inputText, Function fu, AsyncSnapshot snapshot,
-      {isPassword = false}) {
+      {isPassword = false, typeInput = TextInputType.text}) {
     return TextField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
@@ -110,6 +111,7 @@ class LoginPage extends StatelessWidget {
       ),
       onChanged: fu,
       obscureText: isPassword,
+      keyboardType: typeInput,
     );
   }
 
