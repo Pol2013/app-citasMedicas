@@ -1,7 +1,10 @@
 import 'package:app_citas/pages/frequent_questions_page.dart';
+import 'package:app_citas/utils/user_preferences.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardPage extends StatelessWidget {
+  final prefs = new UserPreferences();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -106,6 +109,7 @@ class DashBoardPage extends StatelessWidget {
               ListTile(
                 title: Text('Pregunta Frecuentes'),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -119,6 +123,13 @@ class DashBoardPage extends StatelessWidget {
                 onTap: () {
                   // Update the state of the app.
                   // ...
+                },
+              ),
+              ListTile(
+                title: Text('Cerrar sesión'),
+                onTap: () {
+                  prefs.token = '';
+                  Navigator.pushReplacementNamed(context, 'login');
                 },
               ),
             ]),

@@ -114,7 +114,7 @@ class LoginPage extends StatelessWidget {
   }
 
   _login(BuildContext context, LoginBloc bloc) async {
-    final info = await userProvider.login(bloc.email, bloc.password);
+    final info = await userProvider.logIn(bloc.email, bloc.password);
 
     if (info['ok']) {
       Navigator.pushReplacementNamed(context, 'dashboard');

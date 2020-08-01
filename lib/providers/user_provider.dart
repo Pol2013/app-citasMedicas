@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class UserProvider {
   final _prefs = UserPreferences();
 
-  Future login(String email, String password) async {
+  Future logIn(String email, String password) async {
     Map<String, String> headers = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -28,5 +28,9 @@ class UserProvider {
       _prefs.token = responseDecoded['obj']['token'];
       return {'ok': true};
     }
+  }
+
+  logOut() {
+    _prefs.token = '';
   }
 }

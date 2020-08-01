@@ -23,8 +23,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: defaulTheme,
-        // initialRoute: (prefs.token == '') ? 'login' : 'dashboard',
-        initialRoute: 'login',
+        initialRoute: (prefs.token == '') ? 'login' : 'dashboard',
         routes: {
           'login': (BuildContext context) => LoginPage(),
           'dashboard': (BuildContext context) => DashBoardPage()
