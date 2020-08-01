@@ -1,3 +1,5 @@
+import 'package:app_citas/blocs/provider.dart';
+import 'package:app_citas/blocs/register_bloc.dart';
 import 'package:app_citas/pages/register_next_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  DateTime selectedDate = DateTime.now();
+
   int selectedRadio;
 
   @override
@@ -24,6 +28,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.registerBloc(context);
+
     return Scaffold(
         body: Padding(
             padding: const EdgeInsets.all(32.0),
@@ -40,7 +46,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   DropdownButtonFormField<String>(
                     value: 'Tipo de Documento',
-                    items: ['Tipo de Documento', 'a', 'c']
+                    items: [
+                      'Tipo de Documento',
+                      'DNI',
+                      'Carnét de Extrangeria',
+                      'Pasaporte'
+                    ]
                         .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
@@ -49,15 +60,15 @@ class _RegisterPageState extends State<RegisterPage> {
                     onChanged: (value) {},
                   ),
                   SizedBox(height: 10.0),
-                  buildTextField('nr. documento'),
+                  _buildDocumentNumberTextField(bloc),
                   SizedBox(height: 10.0),
-                  buildTextField('nombre completo'),
+                  _buildNameTextField(bloc),
                   SizedBox(height: 10.0),
-                  buildTextField('apellido paterno'),
+                  _buildLastNameTextField(bloc),
                   SizedBox(height: 10.0),
-                  buildTextField('apellido materno'),
+                  _buildLastNameMTextField(bloc),
                   SizedBox(height: 10.0),
-                  buildTextField('fecha de nacimiento'),
+                  _buildDateOfBirthTextField(bloc),
                   new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -106,12 +117,87 @@ class _RegisterPageState extends State<RegisterPage> {
             ))));
   }
 
-  TextField buildTextField(String inputText) {
+  Widget _buildDocumentNumberTextField(RegisterBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.nameStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return buildTextField(
+            'nr. documento', bloc.changeDocumentNumber, snapshot,
+            typeInput: TextInputType.number);
+      },
+    );
+  }
+
+  Widget _buildNameTextField(RegisterBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.nameStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return buildTextField('nombre completo', bloc.changeName, snapshot);
+      },
+    );
+  }
+
+  Widget _buildLastNameTextField(RegisterBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.nameStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return buildTextField(
+            'apellido paterno', bloc.changeLastName, snapshot);
+      },
+    );
+  }
+
+  Widget _buildLastNameMTextField(RegisterBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.nameStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return buildTextField(
+            'apellido materno', bloc.changeLastNameM, snapshot);
+      },
+    );
+  }
+
+  Widget _buildDateOfBirthTextField(RegisterBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.nameStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'FECHA DE NACIMIENTO',
+            errorText: snapshot.error,
+          ),
+          onTap: () {
+            _selectDate(context);
+          },
+        );
+      },
+    );
+  }
+
+  Widget buildTextField(String inputText, Function fu, AsyncSnapshot snapshot,
+      {isPassword = false, typeInput = TextInputType.text}) {
     return TextField(
-        obscureText: true,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: inputText.toUpperCase(),
-        ));
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: inputText.toUpperCase(),
+        errorText: snapshot.error,
+      ),
+      onChanged: fu,
+      obscureText: isPassword,
+      keyboardType: typeInput,
+    );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime.now().subtract(Duration(days: 365 * 18)),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
   }
 }
