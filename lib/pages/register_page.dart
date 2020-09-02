@@ -31,90 +31,93 @@ class _RegisterPageState extends State<RegisterPage> {
     final bloc = Provider.registerBloc(context);
 
     return Scaffold(
-        body: Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: SafeArea(
-                child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    'DATOS PERSONALES',
-                    style: TextStyle(
-                        fontSize: 20.0,
-                        color: Color.fromRGBO(62, 198, 255, 1),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  DropdownButtonFormField<String>(
-                    value: 'Tipo de Documento',
-                    items: [
-                      'Tipo de Documento',
-                      'DNI',
-                      'Carnét de Extrangeria',
-                      'Pasaporte'
-                    ]
-                        .map((label) => DropdownMenuItem(
-                              child: Text(label),
-                              value: label,
-                            ))
-                        .toList(),
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: 10.0),
-                  _buildDocumentNumberTextField(bloc),
-                  SizedBox(height: 10.0),
-                  _buildNameTextField(bloc),
-                  SizedBox(height: 10.0),
-                  _buildLastNameTextField(bloc),
-                  SizedBox(height: 10.0),
-                  _buildLastNameMTextField(bloc),
-                  SizedBox(height: 10.0),
-                  _buildDateOfBirthTextField(bloc),
-                  new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      new Radio(
-                        value: 0,
-                        groupValue: selectedRadio,
-                        onChanged: setSelectedRadio,
+      body: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'DATOS PERSONALES',
+                  style: TextStyle(
+                      fontSize: 20.0,
+                      color: Color.fromRGBO(62, 198, 255, 1),
+                      fontWeight: FontWeight.bold),
+                ),
+                DropdownButtonFormField<String>(
+                  value: 'Tipo de Documento',
+                  items: [
+                    'Tipo de Documento',
+                    'DNI',
+                    'Carnét de Extrangeria',
+                    'Pasaporte'
+                  ]
+                      .map((label) => DropdownMenuItem(
+                            child: Text(label),
+                            value: label,
+                          ))
+                      .toList(),
+                  onChanged: (value) {},
+                ),
+                SizedBox(height: 10.0),
+                _buildDocumentNumberTextField(bloc),
+                SizedBox(height: 10.0),
+                _buildNameTextField(bloc),
+                SizedBox(height: 10.0),
+                _buildLastNameTextField(bloc),
+                SizedBox(height: 10.0),
+                _buildLastNameMTextField(bloc),
+                SizedBox(height: 10.0),
+                _buildDateOfBirthTextField(bloc),
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    new Radio(
+                      value: 0,
+                      groupValue: selectedRadio,
+                      onChanged: setSelectedRadio,
+                    ),
+                    new Text(
+                      'Masculino',
+                      style: new TextStyle(fontSize: 16.0),
+                    ),
+                    new Radio(
+                      value: 1,
+                      groupValue: selectedRadio,
+                      onChanged: setSelectedRadio,
+                    ),
+                    new Text(
+                      'Femenino',
+                      style: new TextStyle(
+                        fontSize: 16.0,
                       ),
-                      new Text(
-                        'Masculino',
-                        style: new TextStyle(fontSize: 16.0),
-                      ),
-                      new Radio(
-                        value: 1,
-                        groupValue: selectedRadio,
-                        onChanged: setSelectedRadio,
-                      ),
-                      new Text(
-                        'Femenino',
-                        style: new TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      )
-                    ],
-                  ),
-                  ButtonTheme(
-                    minWidth: 400.0,
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      child: Text("siguiente"),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterNextPage()),
-                        );
-                      },
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0),
-                      ),
+                    )
+                  ],
+                ),
+                ButtonTheme(
+                  minWidth: 400.0,
+                  child: RaisedButton(
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                    child: Text("siguiente"),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterNextPage()),
+                      );
+                    },
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0),
                     ),
                   ),
-                ],
-              ),
-            ))));
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildDocumentNumberTextField(RegisterBloc bloc) {

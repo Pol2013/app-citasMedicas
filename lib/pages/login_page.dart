@@ -16,42 +16,68 @@ class LoginPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              FlutterLogo(
-                size: 50.0,
-              ),
-              SizedBox(height: 100.0),
-              _buildEmailTextField(bloc),
-              SizedBox(height: 20.0),
-              _buildPasswordTextField(bloc),
-              SizedBox(height: 20.0),
-              Text('Olvide mi clave'),
-              SizedBox(height: 20.0),
-              _buildSignInButton(bloc),
-              SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Si no esta registrado, ingrese '),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RegisterPage()),
-                      );
-                    },
-                    child: Text(
-                      'aqui',
-                      style:
-                          TextStyle(color: Color.fromRGBO(62, 198, 255, 100)),
-                    ),
-                  )
-                ],
-              )
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                FlutterLogo(
+                  size: 50.0,
+                ),
+                SizedBox(height: 100.0),
+                _buildEmailTextField(bloc),
+                SizedBox(height: 20.0),
+                _buildPasswordTextField(bloc),
+                SizedBox(height: 20.0),
+                Text('Olvide mi clave'),
+                SizedBox(height: 20.0),
+                _buildSignInButton(bloc),
+                SizedBox(height: 10.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Si no esta registrado, ingrese '),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterPage()),
+                        );
+                      },
+                      child: Text(
+                        'aqui',
+                        style:
+                            TextStyle(color: Color.fromRGBO(62, 198, 255, 100)),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
+      ),
+      bottomNavigationBar: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FlatButton(
+              onPressed: () => {_triaje(context)},
+              child: Wrap(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.touch_app,
+                        color: Colors.blue,
+                      ),
+                      Text(
+                        "Triaje",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ],
+                  ),
+                ],
+              )),
+        ],
       ),
     );
   }
@@ -123,6 +149,10 @@ class LoginPage extends StatelessWidget {
     } else {
       _showAlert(context, 'Error al iniciar Sesión');
     }
+  }
+
+  _triaje(BuildContext context) {
+    Navigator.pushReplacementNamed(context, 'triaje');
   }
 
   void _showAlert(BuildContext context, String s) {

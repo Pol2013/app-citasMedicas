@@ -1,4 +1,5 @@
 import 'package:app_citas/pages/dashboad_page.dart';
+import 'package:app_citas/pages/triaje_page.dart';
 import 'package:app_citas/utils/user_preferences.dart';
 
 import 'blocs/provider.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         initialRoute: (prefs.token == '') ? 'login' : 'dashboard',
         routes: {
           'login': (BuildContext context) => LoginPage(),
-          'dashboard': (BuildContext context) => DashBoardPage()
+          'dashboard': (BuildContext context) => DashBoardPage(),
+          'triaje': (BuildContext context) => TriajePage()
         },
       ),
     );
