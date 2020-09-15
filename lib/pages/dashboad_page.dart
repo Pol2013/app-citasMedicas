@@ -1,3 +1,4 @@
+import 'package:app_citas/pages/forum_page.dart';
 import 'package:app_citas/pages/frequent_questions_page.dart';
 import 'package:app_citas/pages/triaje_page.dart';
 import 'package:app_citas/utils/user_preferences.dart';
@@ -87,10 +88,15 @@ class DashBoardPage extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text('Foros'),
+                title: Text('Foro'),
                 onTap: () {
-                  // Update the state of the app.
-                  // ...
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ForumPage(),
+                    ),
+                  );
                 },
               ),
               ListTile(
