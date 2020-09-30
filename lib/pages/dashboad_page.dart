@@ -35,79 +35,81 @@ class DashBoardPage extends StatelessWidget {
               )
             ],
           ),
-          bottomNavigationBar: new TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.home),
-                text: 'Inicio',
-              ),
-              Tab(
-                icon: new Icon(Icons.touch_app),
-                text: 'Triaje',
-              ),
-              Tab(
-                icon: new Icon(Icons.add_box),
-                text: 'Cita',
-              ),
-              Tab(
-                icon: new Icon(Icons.history),
-                text: 'Historia',
-              )
-            ],
-            labelColor: Colors.blue,
-            unselectedLabelColor: Colors.lightBlue,
+          bottomNavigationBar: getBottomNavigationBar(),
+          drawer: getDrawer(context)),
+    );
+  }
+
+  Drawer getDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+        DrawerHeader(
+          child: Text(
+            'Drawer Header',
+            style: TextStyle(color: Colors.white),
           ),
-          drawer: Drawer(
-            child: ListView(padding: EdgeInsets.zero, children: <Widget>[
-              DrawerHeader(
-                child: Text(
-                  'Drawer Header',
-                  style: TextStyle(color: Colors.white),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+          ),
+        ),
+        ListTile(
+          title: Text('Citas'),
+          onTap: () {
+            // Update the state of the app.
+            // ...
+          },
+        ),
+        ListTile(
+          title: Text('Pregunta Frecuentes'),
+          onTap: () {
+            Navigator.pushNamed(context, 'frequent_question');
+          },
+        ),
+        ListTile(
+          title: Text('Foro'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ForumPage(),
               ),
-              ListTile(
-                title: Text('Citas'),
-                onTap: () {
-                  // Update the state of the app.
-                  // ...
-                },
-              ),
-              ListTile(
-                title: Text('Pregunta Frecuentes'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FrequentQuestionsPage(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text('Foro'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ForumPage(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text('Cerrar sesión'),
-                onTap: () {
-                  prefs.token = '';
-                  Navigator.pushReplacementNamed(context, 'login');
-                },
-              ),
-            ]),
-          )),
+            );
+          },
+        ),
+        ListTile(
+          title: Text('Cerrar sesión'),
+          onTap: () {
+            prefs.token = '';
+            Navigator.pushReplacementNamed(context, 'login');
+          },
+        ),
+      ]),
+    );
+  }
+
+  TabBar getBottomNavigationBar() {
+    return new TabBar(
+      tabs: [
+        Tab(
+          icon: Icon(Icons.home),
+          text: 'Inicio',
+        ),
+        Tab(
+          icon: new Icon(Icons.touch_app),
+          text: 'Triaje',
+        ),
+        Tab(
+          icon: new Icon(Icons.add_box),
+          text: 'Cita',
+        ),
+        Tab(
+          icon: new Icon(Icons.history),
+          text: 'Historia',
+        )
+      ],
+      labelColor: Colors.blue,
+      unselectedLabelColor: Colors.lightBlue,
     );
   }
 }

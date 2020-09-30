@@ -1,5 +1,9 @@
 import 'package:app_citas/pages/dashboad_page.dart';
+import 'package:app_citas/pages/forum_page.dart';
+import 'package:app_citas/pages/frequent_questions_page.dart';
 import 'package:app_citas/pages/triaje_page.dart';
+import 'package:app_citas/pages/triaje_page_one.dart';
+import 'package:app_citas/pages/triaje_result_page.dart';
 import 'package:app_citas/utils/user_preferences.dart';
 
 import 'blocs/provider.dart';
@@ -28,7 +32,12 @@ class MyApp extends StatelessWidget {
         routes: {
           'login': (BuildContext context) => LoginPage(),
           'dashboard': (BuildContext context) => DashBoardPage(),
-          'triaje': (BuildContext context) => TriajePage()
+          'triaje': (BuildContext context) => TriajePage(),
+          'triaje_one': (BuildContext context) => TriajeOnePage(),
+          'triaje_result': (BuildContext context) => TriajeResultPage(),
+          'frequent_question': (BuildContext context) =>
+              FrequentQuestionsPage(),
+          'forum': (BuildContext context) => ForumPage(),
         },
       ),
     );
