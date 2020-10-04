@@ -31,7 +31,7 @@ dependencies:
   rxdart: ^0.24.1
   http: ^0.12.2
   shared_preferences:
-  flutter_svg: ^0.17.0
+  flutter_svg: ^0.18.0
   country_code_picker: ^1.4.0
 
 
