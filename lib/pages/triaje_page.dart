@@ -37,7 +37,9 @@ class TriajePage extends StatelessWidget {
             textColor: Colors.white,
             color: Colors.blue,
             child: Text("Iniciar Triaje"),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, 'triaje_one');
+            },
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(30.0),
             ),
