@@ -1,3 +1,5 @@
+import 'package:app_citas/pages/cita_page.dart';
+import 'package:app_citas/pages/cita_resumen_page.dart';
 import 'package:app_citas/pages/dashboad_page.dart';
 import 'package:app_citas/pages/forum_page.dart';
 import 'package:app_citas/pages/frequent_questions_page.dart';
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
           'frequent_question': (BuildContext context) =>
               FrequentQuestionsPage(),
           'forum': (BuildContext context) => ForumPage(),
+          'cita': (BuildContext context)  => CitaPage(),
+          'cita_resumen': (BuildContext context)  => CitaResumenPage(),
         },
       ),
     );

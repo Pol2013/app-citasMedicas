@@ -1,5 +1,6 @@
+import 'package:app_citas/pages/cita_page.dart';
 import 'package:app_citas/pages/forum_page.dart';
-import 'package:app_citas/pages/frequent_questions_page.dart';
+//import 'package:app_citas/pages/frequent_questions_page.dart';
 import 'package:app_citas/pages/triaje_page.dart';
 import 'package:app_citas/utils/user_preferences.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,7 @@ class DashBoardPage extends StatelessWidget {
                 ),
               ),
               TriajePage(),
-              Container(
-                child: Center(
-                  child: Text('Cita'),
-                ),
-              ),
+              CitaPage(),
               Container(
                 child: Center(
                   child: Text('Historia'),
